@@ -1,8 +1,12 @@
 server:
-  port: 8080
+  port: 8082
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
-    name: oauth-client
+    name: config-client
+  config:
+    import: configserver:http://localhost:8080
   security:
     oauth2:
       client:
