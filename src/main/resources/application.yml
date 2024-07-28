@@ -1,5 +1,31 @@
+#server:
+#  port: 8084
+#spring:
+#  main:
+#    allow-bean-definition-overriding: true
+#  application:
+#    name: config-client
+#  config:
+#    import: configserver:http://localhost:8080
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          client-server-oidc:
+#            provider: authorizer
+#            client-id: client-server-id
+#            client-secret: secret
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "http://127.0.0.1:8084/authorized"
+#            client-name: client-server-oidc
+#            scope: openid,profile,read,write
+#        provider:
+#          authorizer:
+#            issuer-uri: http://localhost:9000
+
+
 server:
-  port: 8082
+  port: 8084
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -12,13 +38,13 @@ spring:
       client:
         registration:
           client-server-oidc:
-            provider: spring
+            provider: authorizer
             client-id: client-server-id
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
-            scope: openid, profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,read,write
             client-name: client-server-oidc
         provider:
-          spring:
-            issuer-uri: http://localhost:8181
+          authorizer:
+            issuer-uri: "http://localhost:9000"
